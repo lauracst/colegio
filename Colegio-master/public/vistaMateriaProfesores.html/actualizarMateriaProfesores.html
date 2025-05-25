@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Actualizar Estudiante – Colegio Semillitas</title>
+  <title>Actualizar Materia Profesor – Colegio Semillitas</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.4.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
   <style>
@@ -71,67 +71,53 @@
   <div class="login-card">
     <div class="login-header">
       <img src="/Colegio-master/logo.png" alt="Logo Semillitas" />
-      <h3>Actualizar Estudiante</h3>
-      <p>Modifica los datos del estudiante</p>
+      <h3>Actualizar asignacion</h3>
+      <p>Modifica los datos de la materia profesor</p>
     </div>
 
     <div class="login-body">
-      <form id="actualizarEstudianteForm">
+      <form id="actualizarMateriaProfesorForm">
         <div class="mb-4">
           <label for="documento" class="form-label">Documento</label>
-          <input type="text" class="form-control" id="documento" required placeholder="Documento del estudiante" />
+          <input type="text" class="form-control" id="documento" required placeholder="documento del profesor" />
+
+        <div class="mb-4">
+          <label for="id_materia" class="form-label">ID materia</label>
+          <input type="text" class="form-control" id="id_materia" required placeholder="id de de la materia" />
         </div>
 
         <div class="mb-4">
-          <label for="nombre" class="form-label">Nombre</label>
-          <input type="text" class="form-control" id="nombre" required placeholder="Nombre" />
-        </div>
-
-        <div class="mb-4">
-          <label for="apellido" class="form-label">Apellido</label>
-          <input type="text" class="form-control" id="apellido" required placeholder="Apellido" />
-        </div>
-
-        <div class="mb-4">
-          <label for="email" class="form-label">Correo Electrónico</label>
-          <input type="email" class="form-control" id="email" required placeholder="Correo electrónico" />
-        </div>
-
-        <div class="mb-4">
-          <label for="celular" class="form-label">Celular</label>
-          <input type="text" class="form-control" id="celular" required placeholder="Celular" />
+          <label for="fecha_asignacion" class="form-label">Fecha de asignación</label>
+          <input type="date" class="form-control" id="fecha_asignacion" required>
         </div>
 
         <button type="submit" class="btn btn-primary">
-          <i class="bi bi-pencil-square me-2"></i> Actualizar Estudiante
+          <i class="bi bi-pencil-square me-2"></i> Actualizar Asignación
         </button>
       </form>
     </div>
   </div>
 
   <script>
-    document.getElementById("actualizarEstudianteForm").addEventListener("submit", async function(event) {
+    document.getElementById("actualizarMateriaProfesorForm").addEventListener("submit", async function(event) {
       event.preventDefault();
 
-      const documento = document.getElementById("documento").value;
-      const nombre = document.getElementById("nombre").value;
-      const apellido = document.getElementById("apellido").value;
-      const email = document.getElementById("email").value;
-      const celular = document.getElementById("celular").value;
-
-      const estudianteData = { nombre, apellido, email, celular };
-
+      const documento = document.getElementById("documento_profesor").value;
+      const id_materia = document.getElementById("id_materia").value;
+      const fecha_asignacion = document.getElementById("fecha_asignacion").value;
+    
+      const materiaProfesorData = {documento,id_materia,fecha_asignacion};
       try {
-        const response = await fetch(`http://localhost:3000/api/estudiante/actualizar/${documento}`, {
+        const response = await fetch(`http://localhost:3000/api/materia-profesor/actualizar/${id_materia_profesor}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(estudianteData)
+          body: JSON.stringify(materiaProfesorData)
         });
 
         const data = await response.json();
 
         if (response.ok) {
-          alert('Estudiante actualizado con éxito');
+          alert('Materia Profesor actualizado con éxito');
         } else {
           alert(data.mensaje || 'Error al actualizar');
         }

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Eliminar Estudiante – Colegio Semillitas</title>
+  <title>Eliminar Materia Profesor – Colegio Semillitas</title>
 
   <!-- Bootstrap CSS -->
   <link 
@@ -76,50 +76,50 @@
   <div class="login-card">
     <div class="login-header">
       <img src="/Colegio-master/logo.png" alt="Logo Semillitas">
-      <h3>Eliminar Estudiante</h3>
-      <p>Ingresa el documento del estudiante a eliminar</p>
+      <h3>Eliminar asignacion</h3>
+      <p>Ingresa el id de la materia profesor a eliminar</p>
     </div>
 
     <div class="login-body">
-      <form id="deleteEstudianteForm">
+      <form id="deleteMateriaProfesorForm">
         <div class="mb-4">
-          <label for="documento" class="form-label">Documento</label>
-          <input type="text" class="form-control" id="documento" required placeholder="Ingresa el documento">
+          <label for="id_materia_profesor" class="form-label">ID</label>
+          <input type="text" class="form-control" id="id_materia_profesor" required placeholder="Ingresa el id">
         </div>
 
         <button type="submit" class="btn btn-danger">
-          <i class="bi bi-trash-fill me-2"></i> Eliminar Estudiante
+          <i class="bi bi-trash-fill me-2"></i> Eliminar asignacion
         </button>
       </form>
     </div>
   </div>
 
   <script>
-    document.getElementById("deleteEstudianteForm").addEventListener("submit", async function(event) {
+    document.getElementById("deleteMateriaProfesorForm").addEventListener("submit", async function(event) {
       event.preventDefault();
 
-      const documento = document.getElementById("documento").value.trim();
+      const id_materia_profesor = document.getElementById("id_materia_profesor").value.trim();
 
-      if (!documento) {
-        alert("Por favor, ingresa un número de documento.");
+      if (!id_materia_profesor) {
+        alert("Por favor, ingresa un número de id.");
         return;
       }
 
-      const confirmar = confirm(`¿Estás seguro de eliminar al estudiante con documento ${documento}?`);
+      const confirmar = confirm(`¿Estás seguro de eliminar la asignación con id ${id_materia_profesor}?`);
       if (!confirmar) return;
 
       try {
-        const response = await fetch(`http://localhost:3000/api/estudiante/borrar/${documento}`, {
+        const response = await fetch(`http://localhost:3000/materia-profesor/borrar/${id_materia_profesor}`, {
           method: 'DELETE'
         });
 
         const data = await response.json();
 
         if (response.ok) {
-          alert(data.mensaje || "Estudiante eliminado correctamente.");
-          document.getElementById("deleteEstudianteForm").reset();
+          alert(data.mensaje || "Asignación eliminada correctamente.");
+          document.getElementById("deleteMateriaForm").reset();
         } else {
-          alert(data.mensaje || "No se pudo eliminar el estudiante.");
+          alert(data.mensaje || "No se pudo eliminar la asignación.");
         }
       } catch (error) {
         alert("Error al conectar con el servidor.");

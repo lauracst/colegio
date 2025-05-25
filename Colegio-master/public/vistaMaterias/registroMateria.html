@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Registrar Profesor – Colegio Semillitas</title>
+  <title>Registrar Materia – Colegio Semillitas</title>
   <!-- Bootstrap CSS -->
   <link 
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.4.0/dist/css/bootstrap.min.css" 
@@ -85,73 +85,62 @@
   <div class="login-card">
     <div class="login-header">
       <img src="/Colegio-master/logo.png" alt="Logo Semillitas">
-      <h3>Registrar Profesor</h3>
-      <p>Ingresa los datos del nuevo profesor</p>
+      <h3>Registrar Materia</h3>
+      <p>Ingresa los datos de la nueva materia</p>
     </div>
 
     <div class="login-body">
-      <form id="registerProfesorForm">
+      <form id="registerMateriaForm">
         <div class="mb-4">
-          <label for="documento" class="form-label">Documento</label>
-          <input type="text" class="form-control" id="documento" required placeholder="Ingresa el documento">
+          <label for="id_materia" class="form-label">ID</label>
+          <input type="text" class="form-control" id="id_materia" required placeholder="Ingresa el id de la materia">
         </div>
 
         <div class="mb-4">
-          <label for="nombre" class="form-label">Nombre</label>
-          <input type="text" class="form-control" id="nombre" required placeholder="Ingresa el nombre">
+          <label for="nombre" class="form-label">Nombre materia</label>
+          <input type="text" class="form-control" id="nombre" required placeholder="Ingresa el nombre de la materia">
         </div>
 
         <div class="mb-4">
-          <label for="apellido" class="form-label">Apellido</label>
-          <input type="text" class="form-control" id="apellido" required placeholder="Ingresa el apellido">
+          <label for="horas_semanales" class="form-label">Horas semanales </label>
+          <input type="number" class="form-control" id="horas_semanales" required min="1" placeholder="Ingresa las horas semanales">
         </div>
 
         <div class="mb-4">
-          <label for="profesion" class="form-label">profesión</label>
-          <input type="text" class="form-control" id="profesion" required placeholder="Ingresa la profesión">
-        </div>
-
-        <div class="mb-4">
-          <label for="email" class="form-label">Correo Electrónico</label>
-          <input type="email" class="form-control" id="email" required placeholder="Ingresa el correo electrónico">
-        </div>
-
-        <div class="mb-4">
-          <label for="celular" class="form-label">Celular</label>
-          <input type="text" class="form-control" id="celular" required placeholder="Ingresa el número de celular">
+          <label for="descripcion" class="form-label">Descripción</label>
+          <input type="text" class="form-control" id="descripcion" required placeholder="Ingresa una breve descripción de la materia">
         </div>
 
         <button type="submit" class="btn btn-primary">
-          <i class="bi bi-person-plus me-2"></i> Registrar profesor
+          <i class="bi bi-person-plus me-2"></i> Registrar Materia
         </button>
       </form>
     </div>
   </div>
 
   <script>
-    document.getElementById("registerProfesorForm").addEventListener("submit", async function(event) {
+    document.getElementById("registerMateriaForm").addEventListener("submit", async function(event) {
       event.preventDefault();
 
-      const documento = document.getElementById("documento").value;
+      const id_materia = document.getElementById("id_materia").value;
       const nombre = document.getElementById("nombre").value;
-      const apellido = document.getElementById("apellido").value;
-      const profesion = document.getElementById("profesion").value;
-      const email = document.getElementById("email").value;
-      const celular = document.getElementById("celular").value;
+      const horas_semanales = document.getElementById("horas_semanales").value;
+      const descripcion = document.getElementById("descripcion").value;
+   
 
-      const profesorData = { documento, nombre, apellido, profesion, email, celular };
+      const materiaData = { id_materia, nombre, horas_semanales, descripcion};
 
       try {
-        const response = await fetch('http://localhost:3000/api/profesor/registrar', {  // URL del endpoint de registro
+        const response = await fetch('http://localhost:3000/api/materia/registrar', {  // URL del endpoint de registro
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(profesorData)
+          body: JSON.stringify(materiaData)
         });
 
         const data = await response.json();
 
         if (response.ok) {
-          alert('Profesor registrado con éxito');
+          alert('Materia registrada con éxito');
           // Redirigir o mostrar una confirmación
         } else {
           alert(data.mensaje || 'Error en el registro');
